@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica de Fisioterapia - Planos</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body class="pagina">
+
+    <h1>Clínica de Fisioterapia - Planos de Tratamento</h1>
+
+    <p><a href="/principal">Voltar</a></p>
+
+    <table class="tabela" border="1">
+
+        <thead>
+            <tr>
+                <th class="tabela-cabecalho">Nome do Plano</th>
+                <th class="tabela-cabecalho">Descrição</th>
+                <th class="tabela-cabecalho">Data de Início</th>
+                <th class="tabela-cabecalho">Data de Término</th>
+                <th class="tabela-cabecalho">Paciente</th>
+                <th class="tabela-cabecalho">Status</th>
+                <th class="tabela-cabecalho"></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#plano}}
+            <tr class="tabela-linha">
+
+                <td class="tabela-celula">{{nome_plano}}</td>
+                <td class="tabela-celula">{{descricao_plano}}</td>
+                <td class="tabela-celula">{{data_inicio}}</td>
+                <td class="tabela-celula">{{data_fim}}</td>
+                <td class="tabela-celula">{{paciente_nome}}</td>
+                <td class="tabela-celula">{{status}}</td>
+
+                <td class="tabela-celula tabela-acoes">
+
+                    <a href="/plano?editar={{id}}" class="btn-editar">
+                        Editar
+                    </a>
+
+                    <form method="POST" action="/plano/{{id}}" class="form-excluir" style="display:inline;">
+
+                        <input type="hidden" name="_method" value="DELETE">
+
+                        <button type="submit" class="btn-excluir"
+                            onclick="return confirm('Tem certeza que deseja excluir este plano?')">
+                            Excluir
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+            {{/plano}}
+        </tbody>
+
+    </table>
+
+    <h2 class="titulo-secao">
+        {{#editando}}Editar{{/editando}}
+        {{^editando}}Cadastrar{{/editando}}
+        plano de tratamento
+    </h2>
+
+    <form method="POST" action="{{acao}}" class="form-cadastro">
+
+        {{#editando}}
+        <input type="hidden" name="_method" value="PUT">
+        {{/editando}}
+
+        <select name="paciente_id" required>
+
+            <option value="">Selecione o paciente</option>
+
+            {{#pacientes}}
+            <option value="{{id}}" {{selecionado}}>
+                {{nome_paciente}}
+            </option>
+            {{/pacientes}}
+
+        </select>
+
+        <input
+            type="text"
+            name="nome_plano"
+            placeholder="Nome do plano"
+            value="{{form.nome_plano}}"
+            class="campo-texto"
+            required
+        />
+
+        <input
+            type="text"
+            name="descricao_plano"
+            placeholder="Descrição do tratamento"
+            value="{{form.descricao_plano}}"
+            class="campo-texto"
+            required
+        />
+
+        <label>Data de início:</label>
+        <input
+            type="date"
+            name="data_inicio"
+            value="{{form.data_inicio}}"
+            class="campo-texto"
+            required
+        />
+
+        <label>Data de término:</label>
+        <input
+            type="date"
+            name="data_fim"
+            value="{{form.data_fim}}"
+            class="campo-texto"
+        />
+
+        <select name="status" required>
+            <option value="Ativo">Ativo</option>
+            <option value="Pausado">Pausado</option>
+            <option value="Concluído">Concluído</option>
+        </select>
+
+        <button class="btn-primario">
+            {{#editando}}Salvar alterações{{/editando}}
+            {{^editando}}Cadastrar plano{{/editando}}
+        </button>
+
+    </form>
+
+    {{#editando}}
+    <p><a href="/plano">Cancelar edição</a></p>
+    {{/editando}}
+
+    <p>{{erro}}</p>
+    
+    
+    <script src="/app.js"></script>
+
+
+</body>
+</html>

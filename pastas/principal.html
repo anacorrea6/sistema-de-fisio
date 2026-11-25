@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estúdio de Tatuagem - Principal</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body class="pagina">
+    <h1>Olá, {{nome}}</h1>
+
+    <nav>
+        <a href="/pacientes">Pacientes</a> | 
+        <a href="/plano">Plano de Tratamento</a> | 
+        <a href="/agendamentos">Agendamentos</a>
+    </nav>
+
+    <br>
+
+    <form method="POST" action="/sair">
+        <button type="submit">Sair</button>
+    </form>
+
+    
+    <script src="/app.js"></script>
+
+</body>
+</html>

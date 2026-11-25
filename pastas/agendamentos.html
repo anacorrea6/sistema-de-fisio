@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica de Fisioterapia</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body class="pagina">
+
+    <h1>Clínica de Fisioterapia - Controle de Consultas</h1>
+
+    <p>
+        <a href="/principal">Retornar ao início</a>
+    </p>
+
+    <h2>Consultas Agendadas</h2>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Data da Consulta</th>
+                <th>Nome do Paciente</th>
+                <th>CPF</th>
+                <th>Contato</th>
+                <th>E-mail</th>
+                <th>Plano</th>
+                <th>Descrição</th>
+                <th>Valor</th>
+                <th>Atualizar</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#agendamentos}}
+            <tr>
+                <td>{{data_br}}</td>
+                <td>{{nome_paciente}}</td>
+                <td>{{cpf_paciente}}</td>
+                <td>{{paciente_telefone}}</td>
+                <td>{{email}}</td>
+                <td>{{nome_plano}}</td>
+                <td>{{desccricao_plano}}</td>
+                <td>{{valor_plano}}</td>
+
+                <td>
+                    <form method="POST" action="/agendamentos/{{agendamento_id}}">
+                        <input type="hidden" name="_method" value="PUT">
+
+                        <input 
+                            type="datetime-local"
+                            name="data_agendamento"
+                            value="{{data_input}}"
+                            required
+                        >
+
+                        <button type="submit">Atualizar</button>
+                    </form>
+                </td>
+
+                <td>
+                    <form method="POST" action="/agendamentos/{{agendamento_id}}">
+                        <input type="hidden" name="_method" value="DELETE">
+
+                        <button type="submit">Remover</button>
+                    </form>
+                </td>
+            </tr>
+            {{/agendamentos}}
+        </tbody>
+    </table>
+
+    <h2>Novo Agendamento</h2>
+
+    <form method="POST" action="/agendamentos">
+
+        <label>Paciente:</label>
+        <select name="fk_paciente_id" required>
+            <option value="">Escolha um paciente</option>
+
+            {{#pacientes}}
+            <option value="{{paciente_id}}">
+                {{nome_paciente}}
+            </option>
+            {{/pacientes}}
+        </select>
+
+        <br><br>
+
+        <label>Plano de tratamento:</label>
+        <select name="fk_plano_tratamento_id" required>
+            <option value="">Escolha um plano</option>
+
+            {{#plano}}
+            <option value="{{plano_tratamento_id}}">
+                {{nome}}
+            </option>
+            {{/plano}}
+        </select>
+
+        <br><br>
+
+        <label>Data e horário:</label>
+        <input
+            type="datetime-local"
+            name="data_agendamento"
+            required
+        >
+
+        <br><br>
+
+        <button type="submit">Confirmar Agendamento</button>
+
+    </form>
+
+    
+    <script src="/app.js"></script>
+
+</body>
+</html>
