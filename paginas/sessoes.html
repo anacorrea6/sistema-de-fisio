@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamentos | Clínica de Fisioterapia</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body>
+
+    <header class="topo">
+        <div class="logo">
+            <h2>FisioCare</h2>
+        </div>
+
+        <nav>
+            <a href="/principal">Início</a>
+            <a href="/pacientes">Pacientes</a>
+            <a href="/planos">Planos de tratamento</a>
+            <a href="/sessoes" class="ativo">Agendamentos</a>
+        </nav>
+
+        <form method="POST" action="/sair" style="display: inline;">
+            <button type="submit" class="btn-sair">Sair</button>
+        </form>
+    </header>
+
+    <main class="container">
+
+        <section class="titulo-pagina">
+            <div>
+                <h1>Agendamentos</h1>
+                <p>Consulte e gerencie as sessões de fisioterapia.</p>
+            </div>
+        </section>
+
+        <section class="conteudo">
+            <div class="cabecalho-tabela">
+                <div>
+                    <h2>Nova sessão</h2>
+                    <p>Agende um novo atendimento para um plano ativo.</p>
+                </div>
+            </div>
+
+            <form method="POST" action="/sessoes">
+                <label for="plano_id">Plano de tratamento:</label>
+                <select name="plano_id" id="plano_id" required>
+                    <option value="">Escolha um plano</option>
+                    {{#planos}}
+                    <option value="{{id_plano}}">{{paciente_nome}} - {{descricao}}</option>
+                    {{/planos}}
+                </select>
+
+                <label for="data_sessao">Data:</label>
+                <input type="date" name="data_sessao" id="data_sessao" required>
+
+                <label for="horario">Horário:</label>
+                <input type="time" name="horario" id="horario" required>
+
+                <label for="observacoes">Observações:</label>
+                <input type="text" name="observacoes" id="observacoes">
+
+                <button type="submit" class="btn-salvar">Agendar</button>
+            </form>
+        </section>
+
+        <section class="conteudo">
+
+            <div class="cabecalho-tabela">
+                <div>
+                    <h2>Lista de sessões</h2>
+                    <p>Confira os atendimentos cadastrados.</p>
+                </div>
+
+                <a href="/sessoes" class="btn-atualizar">
+                    Atualizar lista
+                </a>
+            </div>
+
+            <div class="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Paciente</th>
+                            <th>Plano de tratamento</th>
+                            <th>Data</th>
+                            <th>Horário</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {{#sessoes}}
+                        <tr>
+                            <td>{{id_sessao}}</td>
+                            <td>{{paciente_nome}}</td>
+                            <td>{{plano_descricao}}</td>
+                            <td>{{data_sessao}}</td>
+                            <td>{{horario}}</td>
+                            <td>{{status}}</td>
+                            <td>
+                                <form method="POST" action="/sessoes/{{id_sessao}}" style="display: inline;">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <input type="date" name="data_sessao" value="{{data_sessao}}" required>
+                                    <input type="time" name="horario" value="{{horario}}" required>
+                                    <button type="submit" class="btn-salvar">Atualizar</button>
+                                </form>
+
+                                <form method="POST" action="/sessoes/{{id_sessao}}" style="display: inline;">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button type="submit" class="btn-cancelar">Remover</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/sessoes}}
+
+                        {{^sessoes}}
+                        <tr>
+                            <td colspan="7">Nenhuma sessão agendada.</td>
+                        </tr>
+                        {{/sessoes}}
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,3 +1,16 @@
+/* PALETA DE CORES E VARIÁVEIS HERDADAS */
+:root {
+    --cor-fundo-bege: #f7f4eb;        /* Bege bem claro (fundo principal) */
+    --cor-bege-suave: #ebe5d5;        /* Bege médio (menus, hover, destaques suaves) */
+    --cor-bege-borda: #d6ceb8;        /* Bege escuro para bordas */
+    --cor-superficie: #fffdf9;        /* Off-white/bege claríssimo para cards e tabelas */
+    --cor-verde-escuro: #1b4332;      /* Verde floresta profundo (títulos, cabeçalhos, botões) */
+    --cor-verde-medio: #2d6a4f;       /* Verde musgo escuro (subtítulos, hover, links) */
+    --cor-verde-suave: #40916c;       /* Verde de realce e foco */
+    --cor-texto-principal: #1e2d24;   /* Verde-carvão escuro para leitura confortável */
+    --cor-vermelho-alerta: #b53838;   /* Vermelho terroso para excluir/sair */
+    --cor-vermelho-hover: #8f2626;
+}
 
 /* CONFIGURAÇÕES GERAIS */
 * {
@@ -8,26 +21,34 @@
 
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f1f6fb;
-    color: #263849;
+    background-color: var(--cor-fundo-bege);
+    color: var(--cor-texto-principal);
     padding: 30px;
+}
+
+/* HERANÇA DE TIPOGRAFIA E CORES NOS BLOCOS PRINCIPAIS */
+.pagina,
+.container,
+.conteudo,
+.form-cadastro {
+    color: inherit;
 }
 
 /* TÍTULOS */
 h1 {
-    color: #174b75;
+    color: var(--cor-verde-escuro);
     margin-bottom: 20px;
     font-size: 28px;
 }
 
 h2 {
-    color: #21618c;
+    color: var(--cor-verde-medio);
     margin-top: 25px;
     margin-bottom: 15px;
 }
 
 h3 {
-    color: #285b7d;
+    color: var(--cor-verde-medio);
     margin-bottom: 12px;
 }
 
@@ -38,44 +59,59 @@ p {
 
 /* LINKS */
 a {
-    color: #2476ad;
+    color: var(--cor-verde-medio);
     text-decoration: none;
     font-weight: bold;
+    transition: 0.2s;
 }
 
 a:hover {
-    color: #123e60;
+    color: var(--cor-verde-escuro);
     text-decoration: underline;
 }
 
 /* MENU PRINCIPAL */
 nav {
-    background-color: #dcecf8;
+    background-color: var(--cor-bege-suave);
     padding: 18px;
     border-radius: 8px;
     margin: 20px 0;
+    border: 1px solid var(--cor-bege-borda);
 }
 
 nav a {
     margin: 0 12px;
-    color: #174b75;
+    color: var(--cor-verde-escuro);
+}
+
+nav a.ativo {
+    border-bottom: 2px solid var(--cor-verde-escuro);
+    padding-bottom: 4px;
 }
 
 /* BOTÕES */
-button {
-    background-color: #2676aa;
-    color: white;
+button,
+.btn-primario,
+.btn-atualizar {
+    background-color: var(--cor-verde-escuro);
+    color: var(--cor-superficie);
     border: none;
     padding: 11px 20px;
     border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
+    display: inline-block;
+    text-decoration: none;
     transition: 0.3s;
 }
 
-button:hover {
-    background-color: #174b75;
+button:hover,
+.btn-primario:hover,
+.btn-atualizar:hover {
+    background-color: var(--cor-verde-medio);
+    color: var(--cor-superficie);
+    text-decoration: none;
 }
 
 /* CAMPOS DE FORMULÁRIO */
@@ -83,11 +119,12 @@ input,
 select,
 textarea {
     padding: 11px;
-    border: 1px solid #c5d5e2;
+    border: 1px solid var(--cor-bege-borda);
     border-radius: 6px;
     font-size: 14px;
-    background-color: white;
-    color: #263849;
+    background-color: var(--cor-superficie);
+    color: inherit;
+    font-family: inherit;
     max-width: 100%;
 }
 
@@ -95,15 +132,15 @@ input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #2676aa;
-    box-shadow: 0 0 4px #9cc9e8;
+    border-color: var(--cor-verde-medio);
+    box-shadow: 0 0 4px rgba(45, 106, 79, 0.35);
 }
 
 label {
     display: inline-block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #285b7d;
+    color: var(--cor-verde-escuro);
 }
 
 /* FORMULÁRIOS */
@@ -119,63 +156,87 @@ form textarea {
 }
 
 /* TABELAS */
-table {
+table,
+.tabela {
     width: 100%;
     border-collapse: collapse;
-    background-color: white;
+    background-color: var(--cor-superficie);
     margin: 20px 0;
     border-radius: 8px;
     overflow: hidden;
+    border: 1px solid var(--cor-bege-borda);
 }
 
-th {
-    background-color: #2676aa;
-    color: white;
+th,
+.tabela-cabecalho {
+    background-color: var(--cor-verde-escuro);
+    color: var(--cor-superficie);
     padding: 14px;
     text-align: center;
 }
 
-td {
+td,
+.tabela-celula {
     padding: 12px;
-    border-bottom: 1px solid #dce5ec;
+    border-bottom: 1px solid var(--cor-bege-suave);
     text-align: center;
+    color: inherit;
 }
 
-tbody tr:hover {
-    background-color: #edf6fc;
+tbody tr:hover,
+.tabela-linha:hover {
+    background-color: var(--cor-bege-suave);
 }
 
 /* BOTÕES DE EDIÇÃO E EXCLUSÃO */
 .btn-editar {
-    background-color: #d9edfa;
-    color: #17577f;
+    background-color: var(--cor-bege-suave);
+    color: var(--cor-verde-escuro);
+    border: 1px solid var(--cor-bege-borda);
     padding: 8px 12px;
     border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-editar:hover {
+    background-color: var(--cor-verde-medio);
+    color: var(--cor-superficie);
+    text-decoration: none;
 }
 
 .btn-excluir {
-    background-color: #c94c4c;
+    background-color: var(--cor-vermelho-alerta);
+    color: var(--cor-superficie);
     padding: 8px 12px;
 }
 
 .btn-excluir:hover {
-    background-color: #a52f2f;
+    background-color: var(--cor-vermelho-hover);
 }
 
 .btn-salvar {
-    background-color: #26875b;
+    background-color: var(--cor-verde-medio);
+}
+
+.btn-salvar:hover {
+    background-color: var(--cor-verde-escuro);
 }
 
 .btn-cancelar {
-    background-color: #777;
+    background-color: #7d786b;
+}
+
+.btn-cancelar:hover {
+    background-color: #5e5a50;
 }
 
 /* FORMULÁRIO DE CADASTRO */
 .form-cadastro {
-    background-color: white;
+    background-color: var(--cor-superficie);
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    border: 1px solid var(--cor-bege-borda);
+    box-shadow: 0 3px 12px rgba(27, 67, 50, 0.08);
     max-width: 650px;
 }
 
@@ -201,12 +262,13 @@ tbody tr:hover {
 }
 
 .pagina-login form {
-    background-color: white;
+    background-color: var(--cor-superficie);
     width: 350px;
     max-width: 100%;
     padding: 30px;
     border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--cor-bege-borda);
+    box-shadow: 0 4px 15px rgba(27, 67, 50, 0.12);
 }
 
 .pagina-login input {
@@ -220,7 +282,7 @@ tbody tr:hover {
 }
 
 .erro {
-    color: #c0392b;
+    color: var(--cor-vermelho-alerta);
     font-weight: bold;
 }
 
@@ -229,18 +291,19 @@ tbody tr:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: var(--cor-superficie);
     padding: 18px 30px;
     border-radius: 10px;
+    border: 1px solid var(--cor-bege-borda);
     margin-bottom: 30px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 2px 10px rgba(27, 67, 50, 0.07);
     flex-wrap: wrap;
     gap: 15px;
 }
 
 .logo h2 {
     margin: 0;
-    color: #2676aa;
+    color: var(--cor-verde-escuro);
 }
 
 .topo nav {
@@ -248,7 +311,11 @@ tbody tr:hover {
 }
 
 .btn-sair {
-    background-color: #c94c4c;
+    background-color: var(--cor-vermelho-alerta);
+}
+
+.btn-sair:hover {
+    background-color: var(--cor-vermelho-hover);
 }
 
 /* CONTEÚDO PRINCIPAL */
@@ -262,10 +329,12 @@ tbody tr:hover {
 }
 
 .conteudo {
-    background-color: white;
+    background-color: var(--cor-superficie);
     padding: 25px;
     border-radius: 10px;
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--cor-bege-borda);
+    box-shadow: 0 3px 12px rgba(27, 67, 50, 0.07);
+    margin-bottom: 25px;
 }
 
 /* CARDS DE RESUMO */
@@ -279,16 +348,17 @@ tbody tr:hover {
 .card-resumo {
     flex: 1;
     min-width: 180px;
-    background-color: white;
+    background-color: var(--cor-superficie);
     padding: 25px;
     border-radius: 10px;
-    border-left: 5px solid #2676aa;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--cor-bege-borda);
+    border-left: 5px solid var(--cor-verde-escuro);
+    box-shadow: 0 3px 10px rgba(27, 67, 50, 0.07);
 }
 
 .card-resumo p {
     font-size: 28px;
-    color: #2676aa;
+    color: var(--cor-verde-escuro);
     font-weight: bold;
 }
 
@@ -303,7 +373,7 @@ tbody tr:hover {
 }
 
 .btn-atualizar {
-    background-color: #26875b;
+    background-color: var(--cor-verde-medio);
 }
 
 /* TABELAS RESPONSIVAS */
@@ -317,18 +387,19 @@ tbody tr:hover {
     display: none;
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(27, 67, 50, 0.55);
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
 .modal-conteudo {
-    background-color: white;
+    background-color: var(--cor-superficie);
     padding: 30px;
     width: 400px;
     max-width: 100%;
     border-radius: 12px;
+    border: 1px solid var(--cor-bege-borda);
 }
 
 .modal-conteudo input {
@@ -347,8 +418,9 @@ tbody tr:hover {
 /* MENSAGENS */
 .mensagem {
     padding: 12px;
-    background-color: #dcecf8;
-    color: #174b75;
+    background-color: var(--cor-bege-suave);
+    color: var(--cor-verde-escuro);
+    border: 1px solid var(--cor-bege-borda);
     border-radius: 6px;
     margin: 15px 0;
 }
@@ -382,7 +454,8 @@ tbody tr:hover {
         flex-direction: column;
     }
 
-    table {
+    table,
+    .tabela {
         min-width: 750px;
     }
 

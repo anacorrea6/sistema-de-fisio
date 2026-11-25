@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes | Clínica de Fisioterapia</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+
+<body class="pagina">
+
+    <h1>Clínica de Fisioterapia - Pacientes</h1>
+
+    <p><a href="/principal">Voltar</a></p>
+
+    <form method="GET" action="/pacientes">
+        <input
+            type="text"
+            name="busca"
+            placeholder="Buscar paciente por nome..."
+            value="{{busca}}"
+        >
+        <button type="submit">Buscar</button>
+    </form>
+
+    <br>
+
+    <table class="tabela" border="1">
+        <thead>
+            <tr>
+                <th class="tabela-cabecalho">ID</th>
+                <th class="tabela-cabecalho">Nome</th>
+                <th class="tabela-cabecalho">CPF</th>
+                <th class="tabela-cabecalho">Telefone</th>
+                <th class="tabela-cabecalho">E-mail</th>
+                <th class="tabela-cabecalho">Data de Nascimento</th>
+                <th class="tabela-cabecalho">Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#pacientes}}
+            <tr class="tabela-linha">
+                <td class="tabela-celula">{{id_paciente}}</td>
+                <td class="tabela-celula">{{nome}}</td>
+                <td class="tabela-celula">{{cpf_criptografado}}</td>
+                <td class="tabela-celula">{{telefone}}</td>
+                <td class="tabela-celula">{{email}}</td>
+                <td class="tabela-celula">{{data_nascimento}}</td>
+                <td class="tabela-celula tabela-acoes">
+                    <a href="/pacientes?editar={{id_paciente}}" class="btn-editar">
+                        Editar
+                    </a>
+
+                    <form method="POST" action="/pacientes/{{id_paciente}}" style="display:inline;">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button
+                            type="submit"
+                            class="btn-excluir"
+                            onclick="return confirm('Tem certeza que deseja excluir este paciente?')"
+                        >
+                            Excluir
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            {{/pacientes}}
+
+            {{^pacientes}}
+            <tr>
+                <td colspan="7">Nenhum paciente encontrado.</td>
+            </tr>
+            {{/pacientes}}
+        </tbody>
+    </table>
+
+    <h2 class="titulo-secao">
+        {{#editando}}Editar{{/editando}}
+        {{^editando}}Cadastrar{{/editando}}
+        paciente
+    </h2>
+
+    <form method="POST" action="{{acao}}" class="form-cadastro">
+        {{#editando}}
+        <input type="hidden" name="_method" value="PUT">
+        {{/editando}}
+
+        <input
+            type="text"
+            name="nome"
+            placeholder="Nome completo"
+            value="{{form.nome}}"
+            required
+        >
+
+        <input
+            type="text"
+            name="cpf_criptografado"
+            placeholder="CPF"
+            value="{{form.cpf_criptografado}}"
+            required
+        >
+
+        <input
+            type="text"
+            name="telefone"
+            placeholder="Telefone"
+            value="{{form.telefone}}"
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="E-mail"
+            value="{{form.email}}"
+        >
+
+        <label>Data de nascimento:</label>
+        <input
+            type="date"
+            name="data_nascimento"
+            value="{{form.data_nascimento}}"
+        >
+
+        <button type="submit" class="btn-primario">
+            {{#editando}}Salvar alterações{{/editando}}
+            {{^editando}}Cadastrar paciente{{/editando}}
+        </button>
+    </form>
+
+    {{#editando}}
+    <p><a href="/pacientes">Cancelar edição</a></p>
+    {{/editando}}
+
+</body>
+</html>

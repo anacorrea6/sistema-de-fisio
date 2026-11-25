@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "gerar-script": "node gerar-script.js"
+    "start": "node --watch app.js",
+    "gerar-valores": "node gerar-script.js"
   },
   "keywords": [],
   "author": "",

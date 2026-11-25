@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -18,7 +17,6 @@
 
         <thead>
             <tr>
-                <th class="tabela-cabecalho">Nome do Plano</th>
                 <th class="tabela-cabecalho">Descrição</th>
                 <th class="tabela-cabecalho">Data de Início</th>
                 <th class="tabela-cabecalho">Data de Término</th>
@@ -29,11 +27,10 @@
         </thead>
 
         <tbody>
-            {{#plano}}
+            {{#planos}}
             <tr class="tabela-linha">
 
-                <td class="tabela-celula">{{nome_plano}}</td>
-                <td class="tabela-celula">{{descricao_plano}}</td>
+                <td class="tabela-celula">{{descricao}}</td>
                 <td class="tabela-celula">{{data_inicio}}</td>
                 <td class="tabela-celula">{{data_fim}}</td>
                 <td class="tabela-celula">{{paciente_nome}}</td>
@@ -41,11 +38,11 @@
 
                 <td class="tabela-celula tabela-acoes">
 
-                    <a href="/plano?editar={{id}}" class="btn-editar">
+                    <a href="/planos?editar={{id_plano}}" class="btn-editar">
                         Editar
                     </a>
 
-                    <form method="POST" action="/plano/{{id}}" class="form-excluir" style="display:inline;">
+                    <form method="POST" action="/planos/{{id_plano}}" class="form-excluir" style="display:inline;">
 
                         <input type="hidden" name="_method" value="DELETE">
 
@@ -59,7 +56,7 @@
                 </td>
 
             </tr>
-            {{/plano}}
+            {{/planos}}
         </tbody>
 
     </table>
@@ -81,8 +78,8 @@
             <option value="">Selecione o paciente</option>
 
             {{#pacientes}}
-            <option value="{{id}}" {{selecionado}}>
-                {{nome_paciente}}
+            <option value="{{id_paciente}}" {{selecionado}}>
+                {{nome}}
             </option>
             {{/pacientes}}
 
@@ -90,18 +87,9 @@
 
         <input
             type="text"
-            name="nome_plano"
-            placeholder="Nome do plano"
-            value="{{form.nome_plano}}"
-            class="campo-texto"
-            required
-        />
-
-        <input
-            type="text"
-            name="descricao_plano"
+            name="descricao"
             placeholder="Descrição do tratamento"
-            value="{{form.descricao_plano}}"
+            value="{{form.descricao}}"
             class="campo-texto"
             required
         />
@@ -137,7 +125,7 @@
     </form>
 
     {{#editando}}
-    <p><a href="/plano">Cancelar edição</a></p>
+    <p><a href="/planos">Cancelar edição</a></p>
     {{/editando}}
 
     <p>{{erro}}</p>
