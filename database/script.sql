@@ -43,20 +43,18 @@ CREATE TABLE sessao (
 );
 
 INSERT INTO usuario (nome, email, senha_hash) VALUES
-('Administrador', 'admin@fisio.com', '$2b$10$Qnc130VcJQeUyiTbt8X.COi5s4RzWzAIzuA8rryFimTQmYaHo.0zq'),
-('Ana Silva', 'ana@fisio.com', '$2b$10$Qnc130VcJQeUyiTbt8X.COi5s4RzWzAIzuA8rryFimTQmYaHo.0zq'),
-('Carlos Souza', 'carlos@fisio.com', '$2b$10$Qnc130VcJQeUyiTbt8X.COi5s4RzWzAIzuA8rryFimTQmYaHo.0zq');
+('Administrador', 'admin@fisio.com', '$2b$10$4q7e1AfpztrUndaA.S9cDeIRIWJnziADJyK8fbujFTXr/hS4fbwfy');
 
 INSERT INTO paciente
 (nome, cpf_criptografado, telefone, email, data_nascimento)
 VALUES
-('João Pedro', 'e8cc94869024db841a036ca469d8026e:11ec6abd6acaa9f727ba9ade20de0d34', '11987654321',
+('João Pedro', 'b9332f3140efaf757e4d684975ef3365', '11987654321',
  'joao@email.com', '1990-05-15'),
 
-('Maria Oliveira', 'b907b91d08e0fa8b4c493c3a1d477e65:e0daecefd25a70cdffb6cf6633726a7b', '11976543210',
+('Maria Oliveira', 'be4f639df4cd927594a5e3084b540dc1', '11976543210',
  'maria@email.com', '1985-08-20'),
 
-('Lucas Santos', 'cd300fdbb27e58018aaf7588ac9c199e:d948e3457f54c3f530cf45dda5858d44', '11965432109',
+('Lucas Santos', '65eea67226931d6bc95e431330183923', '11965432109',
  'lucas@email.com', '2000-03-10');
 
 INSERT INTO plano_tratamento
@@ -98,3 +96,8 @@ INNER JOIN plano_tratamento pt
 INNER JOIN paciente p
     ON pt.paciente_id = p.id_paciente
 ORDER BY s.data_sessao ASC;
+
+select * from usuario;
+
+INSERT INTO usuario (nome, email, senha_hash) VALUES
+('ana', 'ana@fisio.com', '$2b$10$KSgFqWUBPDI22Qma319JmObLXthFW4GVaUEUDBs7jsWX6dO8gikLa');
